@@ -25,6 +25,8 @@ from wb import utils        # utility functions
 
 # synchronization services
 from wb.wbsync import sync_campaigns
+from wb.wbsync import sync_campaign_details
+from wb.wbsync import sync_stats
 
 
 document_root = os.path.dirname(os.path.abspath(__file__))
@@ -65,8 +67,9 @@ dictConfig(
 
 # List of synchronization services
 svc_list = {
-    "sync_campaigns": sync_campaigns.run_sync
-    #,"sync_stats": sync_stats.run_sync    
+    "sync_campaigns": sync_campaigns.run_sync,
+    "sync_campaign_details": sync_campaign_details.run_sync,
+    "sync_stats": sync_stats.run_sync    
 }
 
 

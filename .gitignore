@@ -1,5 +1,5 @@
-wb/venv/
-wb/.chache/
+*wb/venv/
+*wb/.chache/
 setenv.sh
 
 

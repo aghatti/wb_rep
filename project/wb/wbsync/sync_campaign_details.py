@@ -5,6 +5,7 @@ import logging
 import time
 import datetime
 import pprint
+from dateutil import parser
 
 from .. import dbapi
 from .. import webapi
@@ -47,7 +48,8 @@ def run_sync(api_key, company_id):
                 #pp.pprint(advert)
                 advert_id = advert['advertId']
                 change_time = advert['changeTime']
-                change_time_obj = datetime.datetime.strptime(change_time, '%Y-%m-%dT%H:%M:%S.%f%z')
+                #change_time_obj = datetime.datetime.strptime(change_time, '%Y-%m-%dT%H:%M:%S.%f%z')
+                change_time_obj = parser.parse(change_time)
                 # Format the datetime object in the required format for MySQL
                 formatted_change_time = change_time_obj.strftime('%Y-%m-%d %H:%M:%S')                
                 params_tuple = (company_id, type, status, advert_id, formatted_change_time)
