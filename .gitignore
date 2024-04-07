@@ -1,9 +1,8 @@
 *wb/venv/
 *wb/.chache/
 setenv.sh
-*wb/lock
 *.swp
-
+**/lock
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
