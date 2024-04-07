@@ -17,11 +17,12 @@ WB sync services.
 2. Create database entities in MySQL database (ddls.sql).
 
 ## install package from distrib
+Get distrib in repository distrib folder.
 1. mkdir project_folder.
 2. cd project_folder.
 3. python3 -m venv .venv.
 4. source project_folder/.venv/bin/activate.
-5. cd dist_folder.
+5. cd folder_with_distrib.
 6. pip install -I dist_folder/distr.whl.
 
 ## run package
