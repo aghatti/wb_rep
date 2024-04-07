@@ -1,3 +1,8 @@
+wb/venv/
+wb/.chache/
+setenv.sh
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
