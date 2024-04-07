@@ -26,5 +26,7 @@ WB sync services.
 
 ## run package
 1. source project_folder/.venv/bin/activate.
-2. python -m wb.main.
-
+2. run without arguments:
+	python -m wb.main.
+3. run with arguments:
+	python -m wb.main -s [synchronizaton service name]

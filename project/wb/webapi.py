@@ -4,16 +4,33 @@
 import requests
 from urllib.parse import urlparse
 from urllib.parse import parse_qs
+import logging
 
+logger = logging.getLogger()
 
 def curlGet(api_key, url, data=None):
-        response = requests.get(url, params=data, headers={'Content-Type': 'application/json', 'Authorization': api_key})
+    response = requests.get(url, params=data, headers={'Content-Type': 'application/json', 'Authorization': api_key})
+    try:
         response.raise_for_status()
-        return response.json()
+    except requests.exceptions.HTTPError as e:
+        logging.error("Error making curl get request: %s", e) 
+        raise
+    if response.json() is None:
+        return {}
+    return response.json()
 
 def curlPost(api_key, url, data=None):
     response = requests.post(url, json=data, headers={'Content-Type': 'application/json', 'Authorization': api_key})
-    response.raise_for_status()
+    """
+    try:
+        response.raise_for_status()
+    except requests.exceptions.RequestException as e:
+        logging.error("Error making curl post request: %s", e) 
+        raise
+    """
+    if response.json() is None:
+        #print("response null")
+        return {}
     return response.json()
 
 

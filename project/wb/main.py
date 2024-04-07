@@ -73,15 +73,30 @@ svc_list = {
 }
 
 
+def check_service(value):
+    if value:
+        value_checked = False
+        for svc_name, svc_function in svc_list.items():
+            if(svc_name == value):
+                value_checked = True
+        if not value_checked:
+            raise argparse.ArgumentTypeError("Wrong --service argument value")      
+        return value
+    else:
+        return None
+
 def main():
     '''Main function.'''
 
     # == Get arguments
     parser = argparse.ArgumentParser(description="Get campaigns")
-    parser.add_argument('-d', '--debug', required=False, help='Debug mode', default=False)
+    parser.add_argument('-d', '--debug', required=False, help='Debug mode (optional)', default=False)
+    parser.add_argument('-s', '--service', type=check_service, help="Service name (optional)")
+
     args = parser.parse_args(sys.argv[1:]) 
        
-    # == Use locked file to prevent simultaneous script run
+    # (NOT NEEDED) == Use locked file to prevent simultaneous script run
+    """
     lock = None
     try:
         lock = open(os.path.join(document_root,'lock'), 'w')
@@ -91,7 +106,8 @@ def main():
         print('Unable to obtain file lock. Process already running.')
         raise SystemExit('Unable to obtain file lock')
         return 0
-       
+    """
+    
     # Connect to database   
     con = dbapi.get_connection()
     if con is None:
@@ -103,12 +119,14 @@ def main():
     
     # Run each synchronization service step by step
     for svc_name, svc_function in svc_list.items():
-        for r_company in r_companies:
-            #print(f"company id {r_company[0]}, company api_key {r_company[1]}.")
-            company_id = r_company[0]
-            api_key = r_company[1]
-            # Call the synchronization function with the required arguments
-            svc_function(api_key, company_id)      
+        # Run specific service from argument or all implemented services
+        if not args.service or args.service == svc_name:
+            for r_company in r_companies:
+                #print(f"company id {r_company[0]}, company api_key {r_company[1]}.")
+                company_id = r_company[0]
+                api_key = r_company[1]
+                # Call the synchronization function with the required arguments
+                svc_function(api_key, company_id)      
     
         # Synchronize company's marketing campaigns        
         #sync_campaigns.run_sync(api_key, company_id) 

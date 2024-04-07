@@ -22,7 +22,7 @@ def get_connection():
                 database=conf.db_name
             )
             if _connection.is_connected():
-                print("Connected to MySQL")
+                #print("Connected to MySQL")
                 return _connection
         except mysql.connector.Error as e:
             print(e)         
@@ -78,12 +78,12 @@ def execute_out(query, parameters):
         with con.cursor() as _cursor:
             try:
                 _cursor.execute(query, parameters)
-                records = _cursor.fetchone()
+                records = _cursor.fetchall()
             except Exception as e:
                 logging.error("Error executing SQL select query: %s", error)                
     return records
 
-# TODO remove from here        
+# TODO remove      
 def get_companies() -> List[Tuple]:
     records = []
     con = get_connection()

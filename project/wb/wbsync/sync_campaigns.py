@@ -24,14 +24,14 @@ def run_sync(api_key, company_id):
     data = webapi.curlGet(api_key, url)    
     #print(data)
     if 'errors' in data:
-        logging.info('Run agentSyncWBSales Errors: ' + ', '.join(data['errors']))
+        logging.info('Run sync_campaigns errors: ' + ', '.join(data['errors']))
         data['code'] = 429
     if 'code' in data and data['code'] == 429:
         time.sleep(61)
         data = webapi.curlGet(api_key, url)
 
     if 'errors' in data:
-        logging.info('Run agentSyncWBSales Errors: ' + ', '.join(data['errors']))
+        logging.info('Run sync_campaigns errors: ' + ', '.join(data['errors']))
         data['code'] = 429
 
     if 'code' in data and data['code'] == 429:
