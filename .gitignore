@@ -1,6 +1,8 @@
 *wb/venv/
 *wb/.chache/
 setenv.sh
+*wb/lock
+*.swp
 
 
 # Byte-compiled / optimized / DLL files
