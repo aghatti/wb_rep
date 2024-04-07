@@ -2,6 +2,7 @@
 *wb/.chache/
 setenv.sh
 *.swp
+*.swo
 **/lock
 
 # Byte-compiled / optimized / DLL files
